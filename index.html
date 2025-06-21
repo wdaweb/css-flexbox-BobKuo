@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    #all {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      align-items: center;
+
+      width: 1500px;
+      height: 1030px;
+      /* border: 1px solid red; */
+    }
+
+    .main {
+      width: 1000px;
+      height: 1000px;
+      border: 1px solid #000;
+
+      position: relative;
+    }
+
+    .board {
+      width: 800px;
+      height: 900px;
+      /* border: 1px solid #0f0; */
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      margin: auto;
+    }
+
+    .top,
+    .bottom {
+      width: 800px;
+      height: 400px;
+
+      display: flex;
+      flex-wrap: wrap;
+      /* border: 1px solid #00f; */
+
+      position: relative;
+    }
+
+    .middle {
+      width: 800px;
+      height: 100px;
+      border-left: 1px solid #000;
+      border-right: 1px solid #000;
+
+      display: flex;
+      justify-content: space-around;
+
+      line-height: 100px;
+      font-size: 3rem;
+      font-family: '標楷體';
+    }
+
+    .sq {
+      width: 100px;
+      height: 100px;
+      border-left: 1px solid #000;
+      border-top: 1px solid #000;
+
+      position: relative;
+    }
+
+    .sq:nth-child(8n) {
+      border-right: 1px solid #000;
+    }
+
+    .sq:nth-last-child(-n+8) {
+      border-bottom: 1px solid #000;
+    }
+
+    .top .sq:nth-child(4)::after,
+    .top .sq:nth-child(13)::after,
+    .bottom .sq:nth-child(20)::after,
+    .bottom .sq:nth-child(29)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      height: 100%;
+      border-top: 1px solid #000;
+      transform: skewY(45deg);
+    }
+
+    .top .sq:nth-child(5)::after,
+    .top .sq:nth-child(12)::after,
+    .bottom .sq:nth-child(21)::after,
+    .bottom .sq:nth-child(28)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      height: 100%;
+      border-top: 1px solid #000;
+      transform: skewY(-45deg);
+    }
+
+    #text {
+      height: 100%;
+      /* border: 1px solid #000; */
+
+      font-family: '標楷體';
+      font-size: 2rem;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pieces {
+      width: 900px;
+      height: 1000px;
+      margin: auto;
+
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      z-index: 1;
+    }
+
+    .piece-gp {
+      width: 33.3%;
+      height: 50%;
+
+      display: flex;
+    }
+
+    .piece-gp:nth-of-type(-n+3) {
+      flex-direction: column;
+    }
+
+    .piece-gp:nth-of-type(-n+3) .piece {
+      color: black;
+    }
+
+    .piece-gp:nth-of-type(n+4) {
+      flex-direction: column-reverse;
+    }
+
+    .piece-gp:nth-of-type(n+4) .piece {
+      color: red;
+    }
+
+    .piece-row {
+      width: 100%;
+      height: 20%;
+
+      display: flex;
+    }
+
+    .piece {
+      width: 27%;
+      height: 81%;
+      margin: 3.16%;
+
+      border-radius: 50%;
+      text-align: center;
+      line-height: 80px;
+      font-size: 3rem;
+
+      border: 1px solid black;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="all">
+    <div id="text">
+      <span>棋</span>
+      <span>盤</span>
+      <span>裡</span>
+      <span>，</span>
+      <span>車</span>
+      <span>無</span>
+      <span>輪</span>
+      <span>，</span>
+      <span>馬</span>
+      <span>無</span>
+      <span>韁</span>
+      <span>，</span>
+      <span>叫</span>
+      <span>聲</span>
+      <span>將</span>
+      <span>軍</span>
+      <span>提</span>
+      <span>防</span>
+      <span>提</span>
+      <span>防</span>
+    </div>
+    <div class="main">
+      <!-- 棋子 -->
+      <div class="pieces">
+        <!-- 黑棋 -->
+        <div class="piece-gp">
+          <div class="piece-row">
+            <div class="piece">車</div>
+            <div class="piece">馬</div>
+            <div class="piece">象</div>
+          </div>
+          <div class="piece-row"></div>
+          <div class="piece-row" style="justify-content: center;">
+            <div class="piece">包</div>
+          </div>
+          <div class="piece-row" style="justify-content: space-between;">
+            <div class="piece">卒</div>
+            <div class="piece">卒</div>
+          </div>
+          <div class="piece-row"></div>
+        </div>
+        <div class="piece-gp">
+          <div class="piece-row">
+            <div class="piece">士</div>
+            <div class="piece">將</div>
+            <div class="piece">士</div>
+          </div>
+          <div class="piece-row"></div>
+          <div class="piece-row"></div>
+          <div class="piece-row" style="justify-content: center;">
+            <div class="piece">卒</div>
+          </div>
+          <div class="piece-row"></div>
+        </div>
+        <div class="piece-gp">
+          <div class="piece-row" style="flex-direction: row-reverse;">
+            <div class="piece">車</div>
+            <div class="piece">馬</div>
+            <div class="piece">象</div>
+          </div>
+          <div class="piece-row"></div>
+          <div class="piece-row" style="justify-content: center;">
+            <div class="piece">包</div>
+          </div>
+          <div class="piece-row" style="justify-content: space-between;">
+            <div class="piece">卒</div>
+            <div class="piece">卒</div>
+          </div>
+          <div class="piece-row"></div>
+        </div>
+        <!-- 紅棋 -->
+        <div class="piece-gp">
+          <div class="piece-row">
+            <div class="piece">俥</div>
+            <div class="piece">傌</div>
+            <div class="piece">相</div>
+          </div>
+          <div class="piece-row"></div>
+          <div class="piece-row" style="justify-content: center;">
+            <div class="piece">炮</div>
+          </div>
+          <div class="piece-row" style="justify-content: space-between;">
+            <div class="piece">兵</div>
+            <div class="piece">兵</div>
+          </div>
+          <div class="piece-row"></div>
+        </div>
+        <div class="piece-gp">
+          <div class="piece-row">
+            <div class="piece">仕</div>
+            <div class="piece">帥</div>
+            <div class="piece">仕</div>
+          </div>
+          <div class="piece-row"></div>
+          <div class="piece-row"></div>
+          <div class="piece-row" style="justify-content: center;">
+            <div class="piece">兵</div>
+          </div>
+          <div class="piece-row"></div>
+        </div>
+        <div class="piece-gp">
+          <div class="piece-row" style="flex-direction: row-reverse;">
+            <div class="piece">俥</div>
+            <div class="piece">傌</div>
+            <div class="piece">相</div>
+          </div>
+          <div class="piece-row"></div>
+          <div class="piece-row" style="justify-content: center;">
+            <div class="piece">炮</div>
+          </div>
+          <div class="piece-row" style="justify-content: space-between;">
+            <div class="piece">兵</div>
+            <div class="piece">兵</div>
+          </div>
+          <div class="piece-row"></div>
+        </div>
+      </div>
+      <!-- 棋盤 -->
+      <div class="board">
+        <div class="top">
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+        </div>
+        <div class="middle">
+          <div>楚河</div>
+          <div>漢界</div>
+        </div>
+        <div class="bottom">
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+          <div class="sq"></div>
+        </div>
+      </div>
+    </div>
+    <div id="text">
+      <span>圖</span>
+      <span>畫</span>
+      <span>裡</span>
+      <span>，</span>
+      <span>龍</span>
+      <span>不</span>
+      <span>吟</span>
+      <span>，</span>
+      <span>虎</span>
+      <span>不</span>
+      <span>嘯</span>
+      <span>，</span>
+      <span>小</span>
+      <span>小</span>
+      <span>書</span>
+      <span>僮</span>
+      <span>可</span>
+      <span>笑</span>
+      <span>可</span>
+      <span>笑</span>
+    </div>
+  </div>
+
+
+
+
+
+</body>
+
+</html>
